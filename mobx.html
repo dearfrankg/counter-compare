@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React App!</title>
+    <link rel="stylesheet" href="style.css" media="screen" title="no title" charset="utf-8">
+  </head>
+  <body>
+    <ul class="nav-list">
+      <li><a href="angular1">angular1</a></li>
+      <li><a href="angular2">angular2</a></li>
+      <li><a href="cerebral">cerebral</a></li>
+      <li><a href="cycle">cycle</a></li>
+      <li class="active"><a href="mobx">mobx</a></li>
+      <li><a href="react">react</a></li>
+      <li><a href="redux">redux</a></li>
+    </ul>
+
+    <div id="app"></div>
+
+    <pre>
+      import React from 'react'
+      import ReactDOM from 'react-dom'
+      import DevTools from 'mobx-react-devtools'
+      import Blocks from './Blocks'
+      import { observable } from 'mobx'
+      import {observer} from 'mobx-react'
+
+      @observer
+      export default class Main extends React.Component {
+        render () {
+          const count = this.props.counter.count
+          return (
+            &lt;div>
+              &lt;div>{count}&lt;/div>
+              &lt;Blocks count={count} />
+            &lt;/div>
+          )
+        }
+      }
+
+      @observer
+      export default class App extends React.Component {
+        render () {
+          const {counter} = this.props
+          const {decrement, increment} = counter
+          return (
+            &lt;div>
+              &lt;h3>Mobx Counter App&lt;/h3>
+              &lt;button onClick={decrement}>-&lt;/button>
+              &lt;button onClick={increment}>+&lt;/button>
+              &lt;Main counter={counter} />
+              &lt;DevTools />
+            &lt;/div>
+          )
+        }
+      }
+
+      class Counter {
+        @observable count = 0
+        decrement = () => { this.count-- }
+        increment = () => { this.count++ }
+      }
+
+      const counter = new Counter()
+
+      ReactDOM.render(
+        &lt;App counter={counter} />,
+        document.getElementById('app')
+      )
+    </pre>
+
+
+
+
+    <script src="mobx-manifest.js"></script>
+    <script src="mobx-vendor.js"></script>
+    <script src="mobx-style.js"></script>
+    <script src="mobx-app.js"></script>
+
+  </body>
+</html>

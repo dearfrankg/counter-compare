@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React App!</title>
+    <link rel="stylesheet" href="style.css" media="screen" title="no title" charset="utf-8">
+  </head>
+  <body>
+    <ul class="nav-list">
+      <li><a href="angular1">angular1</a></li>
+      <li><a href="angular2">angular2</a></li>
+      <li><a href="cerebral">cerebral</a></li>
+      <li class="active"><a href="cycle">cycle</a></li>
+      <li><a href="mobx">mobx</a></li>
+      <li><a href="react">react</a></li>
+      <li><a href="redux">redux</a></li>
+    </ul>
+
+    <div id="app"></div>
+
+    <pre>
+      import Rx from 'rx';
+      import Cycle from '@cycle/core';
+      import CycleDOM from '@cycle/dom';
+
+      const {div, button, p, h3, makeDOMDriver} = CycleDOM;
+
+      function main({DOM}) {
+        const action$ = Rx.Observable.merge(
+          DOM.select('.decrement').events('click').map(ev => -1),
+          DOM.select('.increment').events('click').map(ev => +1)
+        );
+        const count$ = action$.startWith(0).scan((x,y) => x+y);
+        return {
+          DOM: count$.map(count =>
+            div([
+              h3('Cycle Counter App'),
+              button('.decrement', 'Decrement'),
+              button('.increment', 'Increment'),
+              p(`Counter: ${count}`)
+            ])
+          )
+        };
+      }
+
+      Cycle.run(main, {
+        DOM: makeDOMDriver('#app')
+      });
+    </pre>
+
+
+
+
+    <script src="cycle-manifest.js"></script>
+    <script src="cycle-vendor.js"></script>
+    <script src="cycle-style.js"></script>
+    <script src="cycle-app.js"></script>
+
+  </body>
+</html>
