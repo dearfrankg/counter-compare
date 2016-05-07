@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React App!</title>
+    <link rel="stylesheet" href="style.css" media="screen" title="no title" charset="utf-8">
+  </head>
+  <body>
+    <ul class="nav-list">
+      <li><a href="angular1">angular1</a></li>
+      <li><a href="angular2">angular2</a></li>
+      <li><a href="cerebral">cerebral</a></li>
+      <li><a href="cycle">cycle</a></li>
+      <li><a href="mobx">mobx</a></li>
+      <li><a href="react">react</a></li>
+      <li class="active"><a href="redux">redux</a></li>
+    </ul>
+
+    <h3>Redux Counter App</h3>
+    <div id="app"></div>
+
+    <pre>
+      import React from 'react'
+      import ReactDOM from 'react-dom'
+      import { connect, Provider } from 'react-redux'
+      import { createStore, combineReducers} from 'redux'
+
+      const INCREMENT = 'INCREMENT'
+      const DECREMENT = 'DECREMENT'
+
+      function increment() {
+        return {type: INCREMENT}
+      }
+
+      function decrement() {
+        return {type: DECREMENT}
+      }
+
+      function counter(state = 0, action) {
+        switch (action.type) {
+          case INCREMENT:
+            return state + 1
+          case DECREMENT:
+            return state - 1
+          default:
+            return state
+        }
+      }
+
+      const store = createStore(combineReducers({counter}))
+
+      @connect((state) => ({
+        counter: state.counter
+      }), {
+        increment,
+        decrement
+      })
+      class Counter extends React.Component {
+        render() {
+          const {counter, increment, decrement} = this.props
+          return (
+            &lt;div>
+              &lt;button onClick={decrement}>-&lt;/button>
+              &lt;button onClick={increment}>+&lt;/button>
+              &lt;div>{counter}&lt;/div>
+            &lt;/div>
+          )
+        }
+      }
+
+      ReactDOM.render(
+        &lt;Provider store={store}>
+          &lt;Counter/>
+        &lt;/Provider>,
+        document.getElementById('app')
+      );
+    </pre>
+
+
+
+
+    <script src="redux-manifest.js"></script>
+    <script src="redux-vendor.js"></script>
+    <script src="redux-style.js"></script>
+    <script src="redux-app.js"></script>
+
+  </body>
+</html>

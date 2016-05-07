@@ -1,0 +1,23 @@
+body {
+  font-family: sans-serif;
+  background: lavender;
+}
+
+.nav-list {
+  style="list-style: none;
+}
+.nav-list li {
+  display: inline-block;
+  font-size: 120%;
+  margin-right: 10px;
+}
+.nav-list li a {
+  text-decoration: none;
+}
+.nav-list li.active {
+  border-bottom: 2px solid blue;
+}
+
+a, a:visited {
+  color: blue;
+}

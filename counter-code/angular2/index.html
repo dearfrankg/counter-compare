@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React App!</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.6.5/babel.min.js"></script>
+
+
+    <style>
+      .nav-list {
+        style="list-style: none;
+      }
+      .nav-list li {
+        display: inline-block;
+        font-size: 120%;
+        margin-right: 10px;
+      }
+      .nav-list li a {
+        text-decoration: none;
+      }
+      .nav-list li.active {
+        border-bottom: 2px solid blue;
+      }
+    </style>
+
+  </head>
+  <body>
+    <ul class="nav-list">
+      <li class="active"><a href="#">angular1</a></li>
+      <li>angular2</li>
+      <li>cerebral</li>
+      <li>cycle</li>
+      <li>mobx</li>
+      <li>redux</li>
+    </ul>
+
+    <div id="app"></div>
+
+    <script type="text/babel">
+      // cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react.js
+      // cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react-dom.js
+
+      class App extends React.Component {
+        render() {
+
+          return (
+            <div>
+              <h3>Hello World!</h3>
+              <pre>{window.script}</pre>
+            </div>
+          )
+        }
+      }
+
+      ReactDOM.render(
+        <App />,
+        document.getElementById('app')
+      );
+
+
+    </script>
+    <script>
+      // Get all the babel scripts
+      var babel_scripts = document.querySelectorAll('script[type="text/babel"]');
+
+      [].map.call(babel_scripts, function(script) {
+
+          // Get their contents
+          var input = script.textContent;
+          window.script = script.textContent;
+
+          // Transform/Transpile/Compile
+          var output = Babel.transform( input, { presets: ['es2015', 'react'] }).code;
+
+          // Create a new script tag of `javascript` type
+          var new_script = document.createElement('script');
+          new_script.setAttribute('type', 'text/javascript');
+          // Set the contents of the script to the transpiled code
+          new_script.textContent = output;
+
+          // Remove the babel script
+          script.remove();
+          // Inject the new transpiled JS
+          document.querySelector('body').appendChild(new_script);
+
+      })
+    </script>
+  </body>
+</html>
